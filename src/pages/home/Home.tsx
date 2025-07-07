@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/Footer";
 import BookContainer from "./BookContainer";
 import Hero from "./Hero";
 import Stats from "./Stats";
@@ -8,6 +9,7 @@ const Home = () => {
       <Hero></Hero>
       <Stats></Stats>
       <BookContainer></BookContainer>
+      <Footer></Footer>
     </div>
   );
 };
