@@ -39,3 +39,46 @@ export function ModeToggle() {
     </DropdownMenu>
   );
 }
+
+// import { Moon, Sun } from "lucide-react";
+// import { Button } from "@/components/ui/button";
+// import { useTheme } from "@/providers/theme-provider";
+
+// export function ModeToggle() {
+//   const { theme, setTheme } = useTheme();
+
+//   const handleToggle = () => {
+//     setTheme(theme === "dark" ? "light" : "dark");
+//   };
+
+//   return (
+//     <Button
+//       onClick={handleToggle}
+//       variant="outline"
+//       size="icon"
+//       className="relative w-9 h-9 p-2 rounded-md flex items-center justify-center
+//                  bg-transparent border border-black dark:border-white
+//                  text-black dark:text-white hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+//     >
+//       {/* Sun Icon */}
+//       <Sun
+//         className={`absolute h-5 w-5 transition-all duration-300
+//                     ${
+//                       theme === "dark"
+//                         ? "opacity-0 scale-50 rotate-90"
+//                         : "opacity-100 scale-100 rotate-0"
+//                     }`}
+//       />
+//       {/* Moon Icon */}
+//       <Moon
+//         className={`absolute h-5 w-5 transition-all duration-300
+//                     ${
+//                       theme === "dark"
+//                         ? "opacity-100 scale-100 rotate-0"
+//                         : "opacity-0 scale-50 -rotate-90"
+//                     }`}
+//       />
+//       <span className="sr-only">Toggle theme</span>
+//     </Button>
+//   );
+// }

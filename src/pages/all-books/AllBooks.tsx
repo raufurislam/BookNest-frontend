@@ -1,8 +1,6 @@
-import React from "react";
-
 const AllBooks = () => {
   return (
-    <div>
+    <div className="my-16">
       <h1>All books</h1>
     </div>
   );

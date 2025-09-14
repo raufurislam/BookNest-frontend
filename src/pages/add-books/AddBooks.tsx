@@ -1,6 +1,6 @@
 const AddBooks = () => {
   return (
-    <div>
+    <div className="my-16">
       <h1>Add Books</h1>
     </div>
   );
