@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { useGetBooksQuery } from "@/redux/api/bookApi";
-// import { useAppDispatch } from "@/redux/hook";
 
 const BookContainer = () => {
-  // const dispatch = useAppDispatch();
   const { data: books, isLoading, error } = useGetBooksQuery();
+  console.log(books);
 
   return (
     <div className="max-w-7xl mx-auto px-5 py-16">

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import hero from "@/assets/hero.png";
+import { Link } from "react-router";
 
 const Hero = () => {
   return (
@@ -16,14 +17,16 @@ const Hero = () => {
               clutter-free experience where stories inspire and your mind feels
               at ease.
             </p>
-            <Button
-              variant="default"
-              className="mt-6 px-8 py-4 rounded-full 
+            <Link to="/all-books">
+              <Button
+                variant="default"
+                className="mt-6 px-8 py-4 rounded-full 
              bg-black/90 text-white hover:bg-black/80 
              shadow-md hover:shadow-lg transition-all duration-200"
-            >
-              Explore Now
-            </Button>
+              >
+                Explore Now
+              </Button>
+            </Link>
           </div>
         </div>
         <img src={hero} className="mx-auto w-[420px] mt-5" alt="" />
