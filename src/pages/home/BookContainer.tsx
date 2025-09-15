@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useGetBooksQuery } from "@/redux/api/bookApi";
 import type { IBook } from "@/types";
+import { Link } from "react-router";
 
 const BookContainer = () => {
   const { data: books, isLoading, error } = useGetBooksQuery();
@@ -60,9 +61,14 @@ const BookContainer = () => {
                 </p>
               </div>
               <div className="flex gap-3">
-                <button className="mt-5 border border-black rounded-full px-4 py-1 hover:bg-black hover:text-white transition">
+                {/* <button className="mt-5 border border-black rounded-full px-4 py-1 hover:bg-black hover:text-white transition">
                   View Book
-                </button>
+                </button> */}
+                <Link to={`/books/${book._id}`}>
+                  <button className="mt-5 border border-black rounded-full px-4 py-1 hover:bg-black hover:text-white transition">
+                    View Book
+                  </button>
+                </Link>
                 <Button className="mt-5 border border-black rounded-full px-4 py-1 hover:bg-black hover:text-white transition">
                   Borrow Book
                 </Button>

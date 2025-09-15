@@ -7,7 +7,11 @@ export const bookApi = baseApi.injectEndpoints({
       query: () => "/books",
       providesTags: ["BOOK"],
     }),
+    getBookById: builder.query<{ data: IBook }, string>({
+      query: (id) => `/books/${id}`,
+      providesTags: ["BOOK"],
+    }),
   }),
 });
 
-export const { useGetBooksQuery } = bookApi;
+export const { useGetBooksQuery, useGetBookByIdQuery } = bookApi;

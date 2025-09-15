@@ -6,6 +6,7 @@ import BorrowSummary from "@/pages/borrow-summary/BorrowSummary";
 
 import ErrorPage from "@/components/ErrorPage";
 import Home from "@/pages/home/Home";
+import BookDetails from "@/components/modules/books/BookDetails";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/all-books",
         Component: AllBooks,
+      },
+      {
+        path: "/books/:id",
+        Component: BookDetails,
       },
       {
         path: "/add-books",
