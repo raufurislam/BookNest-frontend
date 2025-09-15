@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useGetBooksQuery } from "@/redux/api/bookApi";
+import type { IBook } from "@/types";
 
 const BookContainer = () => {
   const { data: books, isLoading, error } = useGetBooksQuery();
@@ -30,7 +31,7 @@ const BookContainer = () => {
         </p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {books?.data?.map((book) => (
+          {books?.data?.map((book: IBook) => (
             <div
               key={book._id}
               className="bg-[#f0f0f0] p-5 rounded-xl shadow-[4px_4px_8px_rgba(0,0,0,0.2)] flex flex-col justify-between"
