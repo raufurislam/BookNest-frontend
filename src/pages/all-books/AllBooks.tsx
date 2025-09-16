@@ -15,7 +15,7 @@ const AllBooks = () => {
   const [deleteBook] = useDeleteBookMutation();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 5;
+  const booksPerPage = 10;
 
   const totalBooks = Array.isArray(books) ? books.length : 0;
   const totalPages = Math.ceil(totalBooks / booksPerPage);
