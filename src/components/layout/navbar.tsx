@@ -93,7 +93,7 @@ export default function Navbar() {
           : "bg-transparent backdrop-blur-0"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
+      <div className="container mx-auto px-5 h-16 flex items-center justify-between">
         {/* Logo */}
         <NavLink
           to="/"

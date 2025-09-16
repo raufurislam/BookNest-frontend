@@ -12,9 +12,10 @@ export const bookApi = baseApi.injectEndpoints({
       invalidatesTags: ["BOOK"],
     }),
 
-    getBooks: builder.query<IResponse<IBook[]>, void>({
+    getBooks: builder.query<IBook[], void>({
       query: () => "/books",
       providesTags: ["BOOK"],
+      transformResponse: (response: IResponse<IBook[]>) => response.data,
     }),
 
     getBookById: builder.query<{ data: IBook }, string>({
