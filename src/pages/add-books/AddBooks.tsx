@@ -27,6 +27,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { useAddBookMutation } from "@/redux/api/bookApi";
 
 // Define genre enum with Zod
 const GenreEnum = z.enum([
@@ -43,16 +44,19 @@ const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
   author: z.string().min(1, "Author is required"),
   genre: GenreEnum,
-  isbn: z.string().length(13, "ISBN must be 13 characters"),
+  // isbn: z.string(),
+  // .regex(/^\d{13}$/, "ISBN must be exactly 13 digits"), // Fixed
   description: z
     .string()
     .min(10, "Description should be at least 10 characters"),
-  copies: z.number().int().min(1, "At least 1 copy is required"),
+  isbn: z.string().regex(/^\d{13}$/, "ISBN must be exactly 13 digits"),
+  copies: z.number().int().min(1).max(100),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
 export default function AddBooks() {
+  const [AddBook] = useAddBookMutation();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -65,8 +69,19 @@ export default function AddBooks() {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log("Book Info:", data);
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const payload = {
+        ...data,
+        isbn: String(data.isbn),
+      };
+
+      await AddBook(payload).unwrap();
+      form.reset();
+      console.log({ "Book Info": payload });
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
 
   return (
@@ -153,7 +168,12 @@ export default function AddBooks() {
                   <FormItem>
                     <FormLabel>ISBN</FormLabel>
                     <FormControl>
-                      <Input placeholder="13-digit ISBN" {...field} />
+                      <Input
+                        placeholder="13-digit ISBN"
+                        type="number"
+                        {...field}
+                        onChange={(e) => field.onChange(e.target.value)} // keep string
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -188,8 +208,13 @@ export default function AddBooks() {
                     <FormControl>
                       <Input
                         type="number"
-                        placeholder="Number of copies"
-                        {...field}
+                        min={1}
+                        max={100}
+                        value={field.value}
+                        onChange={(e) => {
+                          const val = Number(e.target.value);
+                          if (!isNaN(val)) field.onChange(val);
+                        }}
                       />
                     </FormControl>
                     <FormMessage />

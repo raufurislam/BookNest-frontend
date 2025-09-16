@@ -3,10 +3,20 @@ import { baseApi } from "../baseApi";
 
 export const bookApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    addBook: builder.mutation({
+      query: (bookInfo) => ({
+        url: "/books",
+        method: "POST",
+        body: bookInfo,
+      }),
+      invalidatesTags: ["BOOK"],
+    }),
+
     getBooks: builder.query<IResponse<IBook[]>, void>({
       query: () => "/books",
       providesTags: ["BOOK"],
     }),
+
     getBookById: builder.query<{ data: IBook }, string>({
       query: (id) => `/books/${id}`,
       providesTags: ["BOOK"],
@@ -14,4 +24,5 @@ export const bookApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetBooksQuery, useGetBookByIdQuery } = bookApi;
+export const { useAddBookMutation, useGetBooksQuery, useGetBookByIdQuery } =
+  bookApi;
