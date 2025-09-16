@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./components/layout/navbar";
 import Footer from "./components/layout/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 const App = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const App = () => {
       </main>
 
       {!isHomePage && <Footer />}
+      <Toaster />
     </div>
   );
 };

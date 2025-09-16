@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
@@ -28,6 +29,8 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { useAddBookMutation } from "@/redux/api/bookApi";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 // Define genre enum with Zod
 const GenreEnum = z.enum([
@@ -56,6 +59,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function AddBooks() {
+  const navigate = useNavigate();
   const [AddBook] = useAddBookMutation();
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -70,6 +74,8 @@ export default function AddBooks() {
   });
 
   const onSubmit = async (data: FormValues) => {
+    const toastId = toast.loading("Uploading Files. Please wait");
+
     try {
       const payload = {
         ...data,
@@ -77,10 +83,16 @@ export default function AddBooks() {
       };
 
       await AddBook(payload).unwrap();
+      navigate("/all-books");
       form.reset();
-      console.log({ "Book Info": payload });
-    } catch (error) {
+      toast.success("Book added successfully", { id: toastId });
+    } catch (error: any) {
       console.log("Error:", error);
+      const message =
+        (error?.data?.message as string) ??
+        (error?.message as string) ??
+        "An error occurred";
+      toast.error(message, { id: toastId });
     }
   };
 

@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router";
 import router from "./routes/routes.ts";
 import { ThemeProvider } from "./providers/theme-provider.tsx";
 import { Provider } from "react-redux";
+import { Toaster } from "sonner";
 import { store } from "./redux/store.ts";
 
 createRoot(document.getElementById("root")!).render(
@@ -12,6 +13,7 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
         <RouterProvider router={router} />
+        <Toaster richColors />
       </ThemeProvider>
     </Provider>
   </StrictMode>
