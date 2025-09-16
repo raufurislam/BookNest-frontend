@@ -1,34 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Pagination } from "@/components/ui/pagination";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useGetBooksQuery } from "@/redux/api/bookApi";
 import { format } from "date-fns";
 import { Edit, Trash2, BookOpen } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import CustomPagination from "@/components/modules/shared/CustomPagination";
 
 const AllBooks = () => {
   const { data: books, isLoading, isError } = useGetBooksQuery();
+  const [currentPage, setCurrentPage] = useState(1);
+  const booksPerPage = 5;
 
-  const totalBooks: number = Array.isArray(books)
-    ? books.length
-    : (books as any)?.total ?? 0;
+  const totalBooks = Array.isArray(books) ? books.length : 0;
+  const totalPages = Math.ceil(totalBooks / booksPerPage);
 
-  const handleEdit = (book: any) => {
-    console.log("Edit Book", book);
-    // open form with pre-filled book data
-  };
+  const startIndex = (currentPage - 1) * booksPerPage;
+  const endIndex = startIndex + booksPerPage;
+  const currentBooks = Array.isArray(books)
+    ? books.slice(startIndex, endIndex)
+    : [];
 
-  const handleDelete = (book: any) => {
-    console.log("Delete Book", book);
-    // open confirmation dialog before deletion
-  };
-
-  const handleBorrow = (book: any) => {
-    console.log("Borrow Book", book);
-    // open borrow form
-  };
+  const handleEdit = (book: any) => console.log("Edit Book", book);
+  const handleDelete = (book: any) => console.log("Delete Book", book);
+  const handleBorrow = (book: any) => console.log("Borrow Book", book);
 
   if (isError) {
     return (
@@ -54,16 +51,18 @@ const AllBooks = () => {
       {/* Summary */}
       <div className="flex items-center justify-between mt-6 mb-3">
         <p className="text-sm text-muted-foreground">
-          Showing {totalBooks === 0 ? 0 : 1}-{totalBooks} of {totalBooks} books
+          Showing{" "}
+          {totalBooks === 0
+            ? 0
+            : `${startIndex + 1}-${Math.min(endIndex, totalBooks)}`}{" "}
+          of {totalBooks} books
         </p>
       </div>
 
       {/* Table */}
-
       <Card>
         <CardContent className="p-0">
           {isLoading ? (
-            // 🔹 One big skeleton instead of multiple rows
             <div className="p-4">
               <Skeleton className="h-60 w-full rounded-lg" />
             </div>
@@ -83,8 +82,8 @@ const AllBooks = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {Array.isArray(books) && books.length > 0 ? (
-                    books.map((book: any) => (
+                  {currentBooks.length > 0 ? (
+                    currentBooks.map((book: any) => (
                       <tr
                         key={book._id}
                         className="border-b hover:bg-muted/40 transition-colors"
@@ -151,7 +150,12 @@ const AllBooks = () => {
         </CardContent>
       </Card>
 
-      <Pagination />
+      {/* ✅ Reusable Pagination */}
+      <CustomPagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
