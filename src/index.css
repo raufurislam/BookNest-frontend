@@ -3,8 +3,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* globals.css */
 html {
-  overflow-y: scroll;
+  overflow-y: auto; /* keep vertical scrollbar space reserved to avoid layout shift */
 }
 
 @theme inline {

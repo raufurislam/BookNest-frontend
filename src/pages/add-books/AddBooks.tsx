@@ -97,153 +97,158 @@ export default function AddBooks() {
   };
 
   return (
-    <div
-      className={cn(
-        "flex justify-center items-center min-h-screen bg-muted/30 p-6"
-      )}
-    >
-      <Card className="w-full max-w-2xl shadow-lg rounded-2xl">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">Add a New Book</CardTitle>
-          <CardDescription>
-            Fill in the details to add a book to your library
-          </CardDescription>
-        </CardHeader>
+    <div className="my-16 container mx-auto px-5">
+      <div
+        className={cn(
+          "flex justify-center items-center min-h-screen bg-muted/30 p-6"
+        )}
+      >
+        <Card className="w-full max-w-2xl shadow-lg rounded-2xl">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold">Add a New Book</CardTitle>
+            <CardDescription>
+              Fill in the details to add a book to your library
+            </CardDescription>
+          </CardHeader>
 
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {/* Title */}
-              <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Title</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter book title" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Author */}
-              <FormField
-                control={form.control}
-                name="author"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Author</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter author name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Genre */}
-              <FormField
-                control={form.control}
-                name="genre"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Genre</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-6"
+              >
+                {/* Title */}
+                <FormField
+                  control={form.control}
+                  name="title"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Title</FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a genre" />
-                        </SelectTrigger>
+                        <Input placeholder="Enter book title" {...field} />
                       </FormControl>
-                      <SelectContent>
-                        {GenreEnum.options.map((g) => (
-                          <SelectItem key={g} value={g}>
-                            {g}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              {/* ISBN */}
-              <FormField
-                control={form.control}
-                name="isbn"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ISBN</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="13-digit ISBN"
-                        type="number"
-                        {...field}
-                        onChange={(e) => field.onChange(e.target.value)} // keep string
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                {/* Author */}
+                <FormField
+                  control={form.control}
+                  name="author"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Author</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Enter author name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              {/* Description */}
-              <FormField
-                control={form.control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Description</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Brief description of the book"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                {/* Genre */}
+                <FormField
+                  control={form.control}
+                  name="genre"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Genre</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a genre" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {GenreEnum.options.map((g) => (
+                            <SelectItem key={g} value={g}>
+                              {g}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              {/* Copies */}
-              <FormField
-                control={form.control}
-                name="copies"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Copies</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        min={1}
-                        max={100}
-                        value={field.value}
-                        onChange={(e) => {
-                          const val = Number(e.target.value);
-                          if (!isNaN(val)) field.onChange(val);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                {/* ISBN */}
+                <FormField
+                  control={form.control}
+                  name="isbn"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>ISBN</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="13-digit ISBN"
+                          type="number"
+                          {...field}
+                          onChange={(e) => field.onChange(e.target.value)} // keep string
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              {/* Submit Button */}
-              <div className="flex justify-end">
-                <Button type="submit" className="w-full sm:w-auto">
-                  Submit
-                </Button>
-              </div>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+                {/* Description */}
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Brief description of the book"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Copies */}
+                <FormField
+                  control={form.control}
+                  name="copies"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Copies</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          min={1}
+                          max={100}
+                          value={field.value}
+                          onChange={(e) => {
+                            const val = Number(e.target.value);
+                            if (!isNaN(val)) field.onChange(val);
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Submit Button */}
+                <div className="flex justify-end">
+                  <Button type="submit" className="w-full sm:w-auto">
+                    Submit
+                  </Button>
+                </div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

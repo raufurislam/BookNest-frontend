@@ -4,13 +4,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetBooksQuery } from "@/redux/api/bookApi";
+import { useDeleteBookMutation, useGetBooksQuery } from "@/redux/api/bookApi";
 import { format } from "date-fns";
-import { Edit, Trash2, BookOpen } from "lucide-react";
+import { Edit, BookOpen } from "lucide-react";
 import CustomPagination from "@/components/modules/shared/CustomPagination";
+import DeleteConfirmDialog from "@/components/modules/shared/DeleteConfirmDialog";
 
 const AllBooks = () => {
   const { data: books, isLoading, isError } = useGetBooksQuery();
+  const [deleteBook] = useDeleteBookMutation();
+
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 5;
 
@@ -24,7 +27,7 @@ const AllBooks = () => {
     : [];
 
   const handleEdit = (book: any) => console.log("Edit Book", book);
-  const handleDelete = (book: any) => console.log("Delete Book", book);
+  // const handleDelete = (book: any) => console.log("Delete Book", book);
   const handleBorrow = (book: any) => console.log("Borrow Book", book);
 
   if (isError) {
@@ -116,13 +119,20 @@ const AllBooks = () => {
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
-                          <Button
+                          {/* <Button
                             size="sm"
                             variant="destructive"
                             onClick={() => handleDelete(book)}
                           >
                             <Trash2 className="h-4 w-4" />
-                          </Button>
+                          </Button> */}
+
+                          <DeleteConfirmDialog
+                            title="Delete Book?"
+                            description={`This will permanently delete "${book.title}".`}
+                            onConfirm={() => deleteBook(book._id)}
+                          />
+
                           <Button
                             size="sm"
                             variant="secondary"
