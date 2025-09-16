@@ -1,4 +1,4 @@
-export type { IBook } from "./book.type";
+export type { IBook, Genre } from "./book.type";
 
 export interface IResponse<T> {
   success: boolean;
