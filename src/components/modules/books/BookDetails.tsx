@@ -126,7 +126,7 @@
 //   );
 // }
 
-import { useGetBookByIdQuery } from "@/redux/api/bookApi";
+import { useGetBookByIdQuery } from "@/redux/api/book.api";
 import { useParams } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";

@@ -13,8 +13,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useBorrowBookMutation } from "@/redux/api/bookApi";
 import { toast } from "sonner";
+import { useBorrowBookMutation } from "@/redux/api/borrow.api";
 
 type BorrowDialogProps = {
   trigger?: React.ReactNode;

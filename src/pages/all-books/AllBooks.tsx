@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useDeleteBookMutation, useGetBooksQuery } from "@/redux/api/bookApi";
+import { useDeleteBookMutation, useGetBooksQuery } from "@/redux/api/book.api";
 import { format } from "date-fns";
 import {
   Edit,

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { useGetBooksQuery } from "@/redux/api/bookApi";
+import { useGetBooksQuery } from "@/redux/api/book.api";
 import type { IBook } from "@/types";
 import { Link } from "react-router-dom";
 import BorrowDialog from "@/components/modules/shared/BorrowDialog";

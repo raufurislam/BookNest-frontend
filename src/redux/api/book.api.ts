@@ -53,6 +53,7 @@ export const bookApi = baseApi.injectEndpoints({
       invalidatesTags: ["BOOK"],
     }),
 
+    // Borrow a book
     borrowBook: builder.mutation<
       { success: boolean; message: string; data?: unknown },
       { book: string; quantity: number; dueDate: string }
@@ -63,6 +64,28 @@ export const bookApi = baseApi.injectEndpoints({
         body: payload,
       }),
       invalidatesTags: ["BOOK", "BORROW"],
+    }),
+
+    // Borrow summary aggregation
+    getBorrowSummary: builder.query<
+      {
+        book: { title: string; isbn: string };
+        totalQuantity: number;
+        dueDates: string[];
+      }[],
+      void
+    >({
+      query: () => "/borrow",
+      providesTags: ["BORROW"],
+      transformResponse: (
+        response: IResponse<
+          {
+            book: { title: string; isbn: string };
+            totalQuantity: number;
+            dueDates: string[];
+          }[]
+        >
+      ) => response.data,
     }),
 
     deleteBook: builder.mutation<void, string>({
@@ -81,5 +104,6 @@ export const {
   useGetBookByIdQuery,
   useUpdateBookMutation,
   useBorrowBookMutation,
+  useGetBorrowSummaryQuery,
   useDeleteBookMutation,
 } = bookApi;

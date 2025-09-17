@@ -28,7 +28,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { useAddBookMutation } from "@/redux/api/bookApi";
+import { useAddBookMutation } from "@/redux/api/book.api";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
 
