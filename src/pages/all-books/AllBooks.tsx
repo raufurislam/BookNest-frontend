@@ -6,9 +6,19 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDeleteBookMutation, useGetBooksQuery } from "@/redux/api/bookApi";
 import { format } from "date-fns";
-import { Edit, BookOpen, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
+import {
+  Edit,
+  BookOpen,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
+  Eye,
+} from "lucide-react";
 import CustomPagination from "@/components/modules/shared/CustomPagination";
 import DeleteConfirmDialog from "@/components/modules/shared/DeleteConfirmDialog";
+import { useNavigate } from "react-router-dom";
+import BorrowDialog from "@/components/modules/shared/BorrowDialog";
+import EditBookDialog from "@/components/modules/shared/EditBookDialog";
 
 const AllBooks = () => {
   const [createdSort, setCreatedSort] = useState<"asc" | "desc">("desc");
@@ -22,6 +32,7 @@ const AllBooks = () => {
     sort: createdSort,
   });
   const [deleteBook] = useDeleteBookMutation();
+  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 10;
@@ -35,9 +46,8 @@ const AllBooks = () => {
     ? books.slice(startIndex, endIndex)
     : [];
 
-  const handleEdit = (book: any) => console.log("Edit Book", book);
   // const handleDelete = (book: any) => console.log("Delete Book", book);
-  const handleBorrow = (book: any) => console.log("Borrow Book", book);
+  const handleView = (bookId: string) => navigate(`/books/${bookId}`);
 
   if (isError) {
     return (
@@ -134,12 +144,12 @@ const AllBooks = () => {
                           <Badge
                             variant="outline"
                             className={
-                              book.available
+                              book.copies > 0
                                 ? "bg-green-100 text-green-800"
                                 : "bg-red-100 text-red-800"
                             }
                           >
-                            {book.available ? "Available" : "Unavailable"}
+                            {book.copies > 0 ? "Available" : "Unavailable"}
                           </Badge>
                         </td>
                         <td className="px-4 py-3 text-sm text-muted-foreground">
@@ -148,11 +158,20 @@ const AllBooks = () => {
                         <td className="px-4 py-3 text-right flex gap-2 justify-end">
                           <Button
                             size="sm"
-                            variant="outline"
-                            onClick={() => handleEdit(book)}
+                            variant="ghost"
+                            onClick={() => handleView(book._id)}
+                            title="View Details"
                           >
-                            <Edit className="h-4 w-4" />
+                            <Eye className="h-4 w-4" />
                           </Button>
+                          <EditBookDialog
+                            book={book}
+                            trigger={
+                              <Button size="sm" variant="outline" title="Edit">
+                                <Edit className="h-4 w-4" />
+                              </Button>
+                            }
+                          />
                           {/* <Button
                             size="sm"
                             variant="destructive"
@@ -167,13 +186,20 @@ const AllBooks = () => {
                             onConfirm={() => deleteBook(book._id)}
                           />
 
-                          <Button
-                            size="sm"
-                            variant="secondary"
-                            onClick={() => handleBorrow(book)}
-                          >
-                            <BookOpen className="h-4 w-4" />
-                          </Button>
+                          <BorrowDialog
+                            bookId={book._id}
+                            trigger={
+                              <Button
+                                size="sm"
+                                variant="secondary"
+                                title="Borrow"
+                              >
+                                <BookOpen className="h-4 w-4" />
+                              </Button>
+                            }
+                          />
+
+                          {/* Edit dialog now triggered by the Edit button above */}
                         </td>
                       </tr>
                     ))

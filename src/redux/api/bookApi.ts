@@ -41,6 +41,30 @@ export const bookApi = baseApi.injectEndpoints({
       providesTags: ["BOOK"],
     }),
 
+    updateBook: builder.mutation<
+      { data: IBook },
+      { id: string; body: Partial<IBook> }
+    >({
+      query: ({ id, body }) => ({
+        url: `/books/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["BOOK"],
+    }),
+
+    borrowBook: builder.mutation<
+      { success: boolean; message: string; data?: unknown },
+      { book: string; quantity: number; dueDate: string }
+    >({
+      query: (payload) => ({
+        url: "/borrow",
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["BOOK", "BORROW"],
+    }),
+
     deleteBook: builder.mutation<void, string>({
       query: (id) => ({
         url: `/books/${id}`,
@@ -55,5 +79,7 @@ export const {
   useAddBookMutation,
   useGetBooksQuery,
   useGetBookByIdQuery,
+  useUpdateBookMutation,
+  useBorrowBookMutation,
   useDeleteBookMutation,
 } = bookApi;

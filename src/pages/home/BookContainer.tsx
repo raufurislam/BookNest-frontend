@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useGetBooksQuery } from "@/redux/api/bookApi";
 import type { IBook } from "@/types";
 import { Link } from "react-router-dom";
+import BorrowDialog from "@/components/modules/shared/BorrowDialog";
 
 const BookContainer = () => {
   const {
@@ -74,9 +75,14 @@ const BookContainer = () => {
                       View Book
                     </button>
                   </Link>
-                  <Button className="mt-5 border border-black rounded-full px-4 py-1 hover:bg-black hover:text-white transition">
-                    Borrow Book
-                  </Button>
+                  <BorrowDialog
+                    bookId={book._id}
+                    trigger={
+                      <Button className="mt-5 border border-black rounded-full px-4 py-1 hover:bg-black hover:text-white transition">
+                        Borrow Book
+                      </Button>
+                    }
+                  />
                 </div>
               </div>
             ))}
