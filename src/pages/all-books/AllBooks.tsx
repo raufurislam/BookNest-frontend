@@ -11,7 +11,7 @@ import CustomPagination from "@/components/modules/shared/CustomPagination";
 import DeleteConfirmDialog from "@/components/modules/shared/DeleteConfirmDialog";
 
 const AllBooks = () => {
-  const { data: books, isLoading, isError } = useGetBooksQuery();
+  const { data: books, isLoading, isError } = useGetBooksQuery({ limit: 0 });
   const [deleteBook] = useDeleteBookMutation();
 
   const [currentPage, setCurrentPage] = useState(1);

@@ -5,8 +5,8 @@
 
 /* globals.css */
 html {
-  /* overflow-y: auto;  */
-  overflow-y: scroll; /* keep vertical scrollbar space reserved to avoid layout shift */
+  /* overflow-y: auto; */
+  overflow-y: scroll;
 }
 
 @theme inline {

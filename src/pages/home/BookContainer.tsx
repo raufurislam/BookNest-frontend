@@ -4,9 +4,13 @@ import type { IBook } from "@/types";
 import { Link } from "react-router-dom";
 
 const BookContainer = () => {
-  const { data: books, isLoading, isError } = useGetBooksQuery();
+  const {
+    data: books,
+    isLoading,
+    isError,
+  } = useGetBooksQuery({ limit: 10, sortBy: "createdAt", sort: "desc" });
 
-  const previewBooks = Array.isArray(books) ? books.slice(0, 10) : [];
+  const previewBooks = Array.isArray(books) ? books : [];
 
   return (
     <div className="max-w-7xl mx-auto px-5 py-16">
