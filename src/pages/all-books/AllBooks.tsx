@@ -6,12 +6,21 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDeleteBookMutation, useGetBooksQuery } from "@/redux/api/bookApi";
 import { format } from "date-fns";
-import { Edit, BookOpen } from "lucide-react";
+import { Edit, BookOpen, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import CustomPagination from "@/components/modules/shared/CustomPagination";
 import DeleteConfirmDialog from "@/components/modules/shared/DeleteConfirmDialog";
 
 const AllBooks = () => {
-  const { data: books, isLoading, isError } = useGetBooksQuery({ limit: 0 });
+  const [createdSort, setCreatedSort] = useState<"asc" | "desc">("desc");
+  const {
+    data: books,
+    isLoading,
+    isError,
+  } = useGetBooksQuery({
+    limit: 0,
+    sortBy: "createdAt",
+    sort: createdSort,
+  });
   const [deleteBook] = useDeleteBookMutation();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -80,7 +89,32 @@ const AllBooks = () => {
                     <th className="px-4 py-3">ISBN</th>
                     <th className="px-4 py-3">Copies</th>
                     <th className="px-4 py-3">Status</th>
-                    <th className="px-4 py-3">Created At</th>
+                    <th className="px-4 py-3">
+                      <button
+                        type="button"
+                        className="inline-flex items-center gap-1 select-none"
+                        onClick={() =>
+                          setCreatedSort((prev) =>
+                            prev === "asc" ? "desc" : "asc"
+                          )
+                        }
+                        aria-label={`Sort by Created At (${
+                          createdSort === "asc" ? "descending" : "ascending"
+                        })`}
+                        title={`Sort by Created At (${
+                          createdSort === "asc" ? "descending" : "ascending"
+                        })`}
+                      >
+                        Created At
+                        {createdSort === "asc" ? (
+                          <ArrowUp className="h-4 w-4" />
+                        ) : createdSort === "desc" ? (
+                          <ArrowDown className="h-4 w-4" />
+                        ) : (
+                          <ArrowUpDown className="h-4 w-4" />
+                        )}
+                      </button>
+                    </th>
                     <th className="px-4 py-3 text-right">Actions</th>
                   </tr>
                 </thead>
