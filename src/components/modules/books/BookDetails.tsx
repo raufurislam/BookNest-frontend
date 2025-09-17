@@ -237,6 +237,7 @@ export default function BookDetails() {
                   <>
                     <BorrowDialog
                       bookId={book!._id}
+                      availableCopies={book!.copies}
                       trigger={
                         <Button
                           size="sm"

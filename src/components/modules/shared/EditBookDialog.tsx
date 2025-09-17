@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useUpdateBookMutation } from "@/redux/api/book.api";
 import type { IBook, Genre } from "@/types";
 import { toast } from "sonner";
+import { BookOpen, Hash, PenSquare, User2, Type } from "lucide-react";
 
 type EditBookDialogProps = {
   trigger?: React.ReactNode;
@@ -49,6 +50,8 @@ export default function EditBookDialog({ trigger, book }: EditBookDialogProps) {
     };
 
   const submit = async () => {
+    const toastId = toast.loading("Book is updating. Please wait");
+
     try {
       const payload: Partial<IBook> = {};
       (Object.keys(form) as (keyof IBook)[]).forEach((k) => {
@@ -58,10 +61,12 @@ export default function EditBookDialog({ trigger, book }: EditBookDialogProps) {
       });
 
       await updateBook({ id: book._id, body: payload }).unwrap();
-      toast.success("Book updated successfully");
+      toast.success("Book updated successfully", { id: toastId });
       setOpen(false);
     } catch (err: any) {
-      toast.error(err?.data?.message || "Failed to update book");
+      toast.error(err?.data?.message || "Failed to update book", {
+        id: toastId,
+      });
     }
   };
 
@@ -80,7 +85,9 @@ export default function EditBookDialog({ trigger, book }: EditBookDialogProps) {
 
         <div className="grid gap-4 py-2">
           <div className="grid gap-2">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title" className="inline-flex items-center gap-2">
+              <Type className="h-4 w-4 text-muted-foreground" /> Title
+            </Label>
             <Input
               id="title"
               value={form.title || ""}
@@ -88,7 +95,9 @@ export default function EditBookDialog({ trigger, book }: EditBookDialogProps) {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="author">Author</Label>
+            <Label htmlFor="author" className="inline-flex items-center gap-2">
+              <User2 className="h-4 w-4 text-muted-foreground" /> Author
+            </Label>
             <Input
               id="author"
               value={form.author || ""}
@@ -96,7 +105,9 @@ export default function EditBookDialog({ trigger, book }: EditBookDialogProps) {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="genre">Genre</Label>
+            <Label htmlFor="genre" className="inline-flex items-center gap-2">
+              <BookOpen className="h-4 w-4 text-muted-foreground" /> Genre
+            </Label>
             <Input
               id="genre"
               value={(form.genre as Genre) || ""}
@@ -104,7 +115,9 @@ export default function EditBookDialog({ trigger, book }: EditBookDialogProps) {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="isbn">ISBN</Label>
+            <Label htmlFor="isbn" className="inline-flex items-center gap-2">
+              <Hash className="h-4 w-4 text-muted-foreground" /> ISBN
+            </Label>
             <Input
               id="isbn"
               value={form.isbn || ""}

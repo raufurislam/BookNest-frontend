@@ -31,6 +31,7 @@ import { cn } from "@/lib/utils";
 import { useAddBookMutation } from "@/redux/api/book.api";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
+import { BookOpen, PlusCircle } from "lucide-react";
 
 // Define genre enum with Zod
 const GenreEnum = z.enum([
@@ -105,7 +106,15 @@ export default function AddBooks() {
       >
         <Card className="w-full max-w-2xl shadow-lg rounded-2xl">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold">Add a New Book</CardTitle>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <BookOpen className="h-6 w-6 text-primary" />
+                <CardTitle className="text-2xl font-bold">
+                  Add a New Book
+                </CardTitle>
+              </div>
+              <PlusCircle className="h-5 w-5 text-muted-foreground" />
+            </div>
             <CardDescription>
               Fill in the details to add a book to your library
             </CardDescription>

@@ -188,6 +188,7 @@ const AllBooks = () => {
 
                           <BorrowDialog
                             bookId={book._id}
+                            availableCopies={book.copies}
                             trigger={
                               <Button
                                 size="sm"

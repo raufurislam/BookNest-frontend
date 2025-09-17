@@ -119,6 +119,7 @@ const BookContainer = () => {
                       </Link>
                       <BorrowDialog
                         bookId={book._id}
+                        availableCopies={book.copies}
                         trigger={
                           <Button
                             size="sm"

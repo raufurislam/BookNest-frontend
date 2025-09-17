@@ -4,10 +4,10 @@
 @custom-variant dark (&:is(.dark *));
 
 /* globals.css */
-html {
-  /* overflow-y: auto; */
-  overflow-y: scroll;
-}
+/* html { */
+/* overflow-y: auto; */
+/* overflow-y: scroll; */
+/* } */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
