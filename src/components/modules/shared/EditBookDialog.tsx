@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useUpdateBookMutation } from "@/redux/api/book.api";
 import type { IBook, Genre } from "@/types";
 import { toast } from "sonner";
-import { BookOpen, Hash, PenSquare, User2, Type } from "lucide-react";
+import { BookOpen, Hash, User2, Type } from "lucide-react";
 
 type EditBookDialogProps = {
   trigger?: React.ReactNode;
