@@ -7,7 +7,7 @@ import CustomPagination from "@/components/modules/shared/CustomPagination";
 const BorrowSummary = () => {
   const { data, isLoading, isError } = useGetBorrowSummaryQuery();
   const [currentPage, setCurrentPage] = useState(1);
-  const perPage = 2;
+  const perPage = 10;
 
   const { paginated, totalPages } = useMemo(() => {
     const list = Array.isArray(data) ? data : [];
