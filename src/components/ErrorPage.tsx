@@ -1,5 +1,3 @@
-import React from "react";
-
 const ErrorPage: React.FC = () => {
   return (
     <div style={{ textAlign: "center", marginTop: "10vh" }}>
