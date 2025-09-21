@@ -115,7 +115,7 @@ const AllBooks = () => {
                           createdSort === "asc" ? "descending" : "ascending"
                         })`}
                       >
-                        Created At
+                        Created
                         {createdSort === "asc" ? (
                           <ArrowUp className="h-4 w-4" />
                         ) : createdSort === "desc" ? (

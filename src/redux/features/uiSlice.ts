@@ -127,7 +127,7 @@ const uiSlice = createSlice({
     // Form error actions
     setFormError: (
       state,
-      action: PayloadAction<{ field: string; error: string }>
+      action: PayloadAction<{ field: string; error: string }>,
     ) => {
       state.formErrors[action.payload.field] = action.payload.error;
     },

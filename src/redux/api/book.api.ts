@@ -84,7 +84,7 @@ export const bookApi = baseApi.injectEndpoints({
             totalQuantity: number;
             dueDates: string[];
           }[]
-        >
+        >,
       ) => response.data,
     }),
 
