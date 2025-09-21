@@ -1,5 +1,5 @@
-import type { UIState } from "@/types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { UIState } from "@/types";
 
 // Initial state
 const initialState: UIState = {
