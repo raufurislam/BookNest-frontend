@@ -74,13 +74,14 @@
 // }
 
 import { NavLink, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Menu, X } from "lucide-react"; // icons
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useUI } from "@/redux/hooks/useUI";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -92,19 +93,18 @@ const navItems = [
 export default function Navbar() {
   const location = useLocation();
   const currentPath = location.pathname;
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false); // control popover
+  const { scrolled, sidebarOpen, setScrolled, setSidebarOpen } = useUI();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [setScrolled]);
 
   // Close menu on route change
   useEffect(() => {
-    setOpen(false);
-  }, [location.pathname]);
+    setSidebarOpen(false);
+  }, [location.pathname, setSidebarOpen]);
 
   const isHome = currentPath === "/";
 
@@ -148,13 +148,13 @@ export default function Navbar() {
 
         {/* Mobile Popover Menu */}
         <div className="md:hidden">
-          <Popover open={open} onOpenChange={setOpen}>
+          <Popover open={sidebarOpen} onOpenChange={setSidebarOpen}>
             <PopoverTrigger asChild>
               <button
                 className="p-2 rounded-full hover:bg-black/10 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black/20"
                 aria-label="Toggle menu"
               >
-                {open ? (
+                {sidebarOpen ? (
                   <X className="h-6 w-6 text-black transition-transform duration-200" />
                 ) : (
                   <Menu className="h-6 w-6 text-black transition-transform duration-200" />

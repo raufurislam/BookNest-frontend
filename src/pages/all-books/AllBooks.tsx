@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,9 +18,17 @@ import DeleteConfirmDialog from "@/components/modules/shared/DeleteConfirmDialog
 import { useNavigate } from "react-router-dom";
 import BorrowDialog from "@/components/modules/shared/BorrowDialog";
 import EditBookDialog from "@/components/modules/shared/EditBookDialog";
+import { useUI } from "@/redux/hooks/useUI";
 
 const AllBooks = () => {
-  const [createdSort, setCreatedSort] = useState<"asc" | "desc">("desc");
+  const {
+    currentPage,
+    booksPerPage,
+    createdSort,
+    setCurrentPage,
+    toggleCreatedSort,
+  } = useUI();
+
   const {
     data: books,
     isLoading,
@@ -33,9 +40,6 @@ const AllBooks = () => {
   });
   const [deleteBook] = useDeleteBookMutation();
   const navigate = useNavigate();
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 10;
 
   const totalBooks = Array.isArray(books) ? books.length : 0;
   const totalPages = Math.ceil(totalBooks / booksPerPage);
@@ -103,11 +107,7 @@ const AllBooks = () => {
                       <button
                         type="button"
                         className="inline-flex items-center gap-1 select-none"
-                        onClick={() =>
-                          setCreatedSort((prev) =>
-                            prev === "asc" ? "desc" : "asc"
-                          )
-                        }
+                        onClick={toggleCreatedSort}
                         aria-label={`Sort by Created At (${
                           createdSort === "asc" ? "descending" : "ascending"
                         })`}
@@ -172,13 +172,6 @@ const AllBooks = () => {
                               </Button>
                             }
                           />
-                          {/* <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleDelete(book)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button> */}
 
                           <DeleteConfirmDialog
                             title="Delete Book?"
@@ -199,8 +192,6 @@ const AllBooks = () => {
                               </Button>
                             }
                           />
-
-                          {/* Edit dialog now triggered by the Edit button above */}
                         </td>
                       </tr>
                     ))
@@ -221,7 +212,7 @@ const AllBooks = () => {
         </CardContent>
       </Card>
 
-      {/* ✅ Reusable Pagination */}
+      {/* Pagination */}
       <CustomPagination
         currentPage={currentPage}
         totalPages={totalPages}
