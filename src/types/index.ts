@@ -1,4 +1,5 @@
 export type { IBook, Genre } from "./book.type";
+export type { UIState } from "./ui.type";
 
 export interface IMeta {
   total: number;

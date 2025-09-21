@@ -1,30 +1,5 @@
+import type { UIState } from "@/types";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
-// Define the UI state interface
-interface UIState {
-  // Pagination state
-  currentPage: number;
-  booksPerPage: number;
-
-  // Sorting state
-  createdSort: "asc" | "desc";
-
-  // Modal/Dialog states
-  isDeleteDialogOpen: boolean;
-  isBorrowDialogOpen: boolean;
-  isEditDialogOpen: boolean;
-  selectedBookId: string | null;
-
-  // Navigation state
-  sidebarOpen: boolean;
-  scrolled: boolean;
-
-  // Loading states
-  isSubmitting: boolean;
-
-  // Form states
-  formErrors: Record<string, string>;
-}
 
 // Initial state
 const initialState: UIState = {
@@ -52,7 +27,6 @@ const initialState: UIState = {
   formErrors: {},
 };
 
-// Create the slice
 const uiSlice = createSlice({
   name: "ui",
   initialState,
@@ -127,7 +101,7 @@ const uiSlice = createSlice({
     // Form error actions
     setFormError: (
       state,
-      action: PayloadAction<{ field: string; error: string }>,
+      action: PayloadAction<{ field: string; error: string }>
     ) => {
       state.formErrors[action.payload.field] = action.payload.error;
     },
