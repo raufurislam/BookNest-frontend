@@ -16,10 +16,6 @@ const initialState: UIState = {
   isEditDialogOpen: false,
   selectedBookId: null,
 
-  // Navigation
-  sidebarOpen: false,
-  scrolled: false,
-
   // Loading
   isSubmitting: false,
 
@@ -80,19 +76,6 @@ const uiSlice = createSlice({
       state.selectedBookId = null;
     },
 
-    // Navigation actions
-    setSidebarOpen: (state, action: PayloadAction<boolean>) => {
-      state.sidebarOpen = action.payload;
-    },
-
-    toggleSidebar: (state) => {
-      state.sidebarOpen = !state.sidebarOpen;
-    },
-
-    setScrolled: (state, action: PayloadAction<boolean>) => {
-      state.scrolled = action.payload;
-    },
-
     // Loading actions
     setSubmitting: (state, action: PayloadAction<boolean>) => {
       state.isSubmitting = action.payload;
@@ -131,9 +114,6 @@ export const {
   closeBorrowDialog,
   openEditDialog,
   closeEditDialog,
-  setSidebarOpen,
-  toggleSidebar,
-  setScrolled,
   setSubmitting,
   setFormError,
   clearFormError,
@@ -159,9 +139,6 @@ export const selectIsEditDialogOpen = (state: { ui: UIState }) =>
   state.ui.isEditDialogOpen;
 export const selectSelectedBookId = (state: { ui: UIState }) =>
   state.ui.selectedBookId;
-export const selectSidebarOpen = (state: { ui: UIState }) =>
-  state.ui.sidebarOpen;
-export const selectScrolled = (state: { ui: UIState }) => state.ui.scrolled;
 export const selectIsSubmitting = (state: { ui: UIState }) =>
   state.ui.isSubmitting;
 export const selectFormErrors = (state: { ui: UIState }) => state.ui.formErrors;

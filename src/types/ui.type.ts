@@ -9,9 +9,6 @@ export interface UIState {
   isEditDialogOpen: boolean;
   selectedBookId: string | null;
 
-  sidebarOpen: boolean;
-  scrolled: boolean;
-
   isSubmitting: boolean;
 
   formErrors: Record<string, string>;

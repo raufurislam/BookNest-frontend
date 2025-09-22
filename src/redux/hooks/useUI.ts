@@ -7,8 +7,6 @@ import {
   selectIsBorrowDialogOpen,
   selectIsEditDialogOpen,
   selectSelectedBookId,
-  selectSidebarOpen,
-  selectScrolled,
   selectIsSubmitting,
   selectFormErrors,
   setCurrentPage,
@@ -21,9 +19,6 @@ import {
   closeBorrowDialog,
   openEditDialog,
   closeEditDialog,
-  setSidebarOpen,
-  toggleSidebar,
-  setScrolled,
   setSubmitting,
   setFormError,
   clearFormError,
@@ -43,8 +38,6 @@ export const useUI = () => {
   const isBorrowDialogOpen = useAppSelector(selectIsBorrowDialogOpen);
   const isEditDialogOpen = useAppSelector(selectIsEditDialogOpen);
   const selectedBookId = useAppSelector(selectSelectedBookId);
-  const sidebarOpen = useAppSelector(selectSidebarOpen);
-  const scrolled = useAppSelector(selectScrolled);
   const isSubmitting = useAppSelector(selectIsSubmitting);
   const formErrors = useAppSelector(selectFormErrors);
 
@@ -65,11 +58,6 @@ export const useUI = () => {
     closeBorrowDialog: () => dispatch(closeBorrowDialog()),
     openEditDialog: (bookId: string) => dispatch(openEditDialog(bookId)),
     closeEditDialog: () => dispatch(closeEditDialog()),
-
-    // Navigation
-    setSidebarOpen: (open: boolean) => dispatch(setSidebarOpen(open)),
-    toggleSidebar: () => dispatch(toggleSidebar()),
-    setScrolled: (scrolled: boolean) => dispatch(setScrolled(scrolled)),
 
     // Loading
     setSubmitting: (submitting: boolean) => dispatch(setSubmitting(submitting)),
@@ -93,8 +81,7 @@ export const useUI = () => {
     isBorrowDialogOpen,
     isEditDialogOpen,
     selectedBookId,
-    sidebarOpen,
-    scrolled,
+
     isSubmitting,
     formErrors,
 

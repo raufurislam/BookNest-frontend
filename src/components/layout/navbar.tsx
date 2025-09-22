@@ -1,12 +1,11 @@
 import { NavLink, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react"; // icons
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useUI } from "@/redux/hooks/useUI";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -18,18 +17,22 @@ const navItems = [
 export default function Navbar() {
   const location = useLocation();
   const currentPath = location.pathname;
-  const { scrolled, sidebarOpen, setScrolled, setSidebarOpen } = useUI();
 
+  // Local UI states
+  const [scrolled, setScrolled] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Handle scroll for header background
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [setScrolled]);
+  }, []);
 
-  // Close menu on route change
+  // Close mobile menu on route change
   useEffect(() => {
     setSidebarOpen(false);
-  }, [location.pathname, setSidebarOpen]);
+  }, [location.pathname]);
 
   const isHome = currentPath === "/";
 
